@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset = "UTF-8">
+ <meta http-equiv="pragma" content="no-cache">
+ <title>
+    測試
+</title> 
+<style>
+.de{
+    height:100px;
+    width:40%;
+    background-color: lightblue;
+    border:#00f solid 1px;
+    display:inline-block;
+    margin-bottom:5px;
+    
+ }
+
+h3{
+    font-size:30px;
+    height:100px;
+    width:150px;
+                       
+    display:inline-block;
+    margin:0px;
+    margin-right:20px;
+    float:left;
+}
+
+#hide{
+ display:none;
+    }
+
+#hideone{
+  display:none;
+        }
+         
+#submit{
+  display:none;
+        }
+</style>
+</head>
+<body>
+    <div id="login">
+        <div>
+        <fieldset>
+        <h1><%= title %></h1>
+        <legend>Login : </legend>
+        <label>ID--------- : </label><input type="text" id="pass" placeholder="input your ID&hearts;" /><br>
+        <label>Password : </label><input type="password" id="password" placeholder="input your password&hearts;&hearts;" /><br>
+        <button type="button" onclick="Submit()">Submit</button>
+        </fieldset>
+        </div>
+        </div>
+        
+        <div id="hide">
+        <div class="ts" style="background-color:#66ffff;text-align:left;width:1200;height:700px;border:5px solid #ccc;"> 
+        <h3>Key : </h3>
+        <div id="demo" class="de">
+        </div>
+        <br/>
+        <h3>Record : </h3>
+        <div id="demo2" class="de">
+        </div>
+        <br/>
+        <h3>Name : </h3>
+        <div id="demo3" class="de">
+        </div>
+        <br/>
+        <h3>Phone : </h3>
+        <div id="demo4" class="de">
+        </div>
+        <br/>
+        <h3>Status : </h3>
+        <div id="demo5" class="de">
+        </div>
+        <br/>
+        <h3>Price: </h3>
+        <div id="demo6" class="de">
+        </div>
+        </div>
+        <button type="button" onclick="Submitone()">新增表單</button>
+        </div>
+
+        <div id="hideone">
+        <form action="">
+        <label >Name:</label><input type="text" required><br><br>
+        <label >Phone:</label><input type="tel" id="phone" pattern="[0-9]{9}|[0-9]{10}|[0-9]{2}-[0-9]{7}" required><br><br>
+        <label >Address:</label><input type="text" required><br><br>
+        <label >StatusOwner:</label><input type="text" value="comuser"  disabled><br><br>
+        <label >Tranprice:</label><input type="number" required><br><br>
+        <input type="submit" value="Submit">
+        </form>
+        </div>
+        <br/>
+        <div id="submit"><%= result %></div>
+        <script src="/test"></script>
+</body>
+</html>
