@@ -59,4 +59,12 @@
                         form.style.display = "block";
                   }
 
+                  function send(){
+                    var ord = document.getElementById("ord");
+                    var ord_1 = document.getElementById("ord_1");
+                    var orderor = document.getElementById("order_s");
+                    orderor.value = ord.value + ord_1.value.toString() ;
+                    console.log(typeof orderor.value);
+                  }
+
                Text();
