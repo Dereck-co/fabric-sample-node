@@ -7,7 +7,7 @@
                var hide = document.getElementById("hide");
                var j = document.getElementById("submit").textContent;
                var y = document.getElementById("demo");
-               var y1 = document.getElementById("demo2");
+               var y1 = document.getElementById("demo2");node
                var y2 = document.getElementById("demo3");
                var y3 = document.getElementById("demo4");
                var y4 = document.getElementById("demo5");

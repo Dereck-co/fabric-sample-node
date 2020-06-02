@@ -1,3 +1,4 @@
+               var query = document.getElementById("query");
                var form = document.getElementById("hideone");
                var item =[1,2,666];
                var item1 =['123456789','2468','654987'];
@@ -15,6 +16,7 @@
                var y5 = document.getElementById("demo6");
 
                function Text(){
+                 console.log(j);
                 for(i = 0;i<j.length;i++){
                   var Key = document.createTextNode(j[i].Key+"["+i+"]"+" - - - ");
                   var Record = document.createTextNode(j[i].Record.GetAddress+"["+i+"]"+" - - - ");
@@ -59,6 +61,11 @@
                         form.style.display = "block";
                   }
 
+                  function Submittwo(){
+                    hide.style.display = "none";
+                    query.style.display = "block";
+              }
+
                   function send(){
                     var ord = document.getElementById("ord");
                     var ord_1 = document.getElementById("ord_1");
@@ -67,4 +74,16 @@
                     console.log(typeof orderor.value);
                   }
 
+
+                  function send_1(){
+                    var que_1 = document.getElementById("que_1");
+                    var que_2 = document.getElementById("que_2");
+                    var query = document.getElementById("order_send");
+                   query.value = que_1.value + que_2.value.toString() ;
+                    console.log(typeof orderor.value);
+                  }
+
+                  function re(){
+                    window.location.replace("/");
+                  }
                Text();
