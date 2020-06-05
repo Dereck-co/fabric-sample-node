@@ -12,14 +12,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 app.get('/',  async function (req, res) {
- 
+        //console.dir(req.path);
   try {
     // Create a new file system based wallet for managing identities.
-           //const file =res.sendFile(__dirname+"/"+"node_ts.js");         
-           console.log('1');
+           //const file =res.sendFile(__dirname+"/"+"node_ts.js");        
             const walletPath = path.join(process.cwd(), 'wallet');
             const wallet = new FileSystemWallet(walletPath);
-            console.log(`Wallet path: ${walletPath}`);
+            //console.log(`Wallet path: ${walletPath}`);
     // Check to see if we've already enrolled the user.
             const userExists = await wallet.exists('user1');
             if (!userExists) {
@@ -51,7 +50,7 @@ app.get('/',  async function (req, res) {
             res.status(500).json({error: error});
             process.exit(1);
         }
-        console.dir(req.path)
+
     });
 
 
@@ -79,7 +78,7 @@ app.get('/',  async function (req, res) {
                     // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
                     // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
                     //req.body.ordererid = ORDERER1;
-                    console.dir(req.body);
+                    //console.dir(req.body);
                     const x = await contract.submitTransaction('createOrderer',req.body.orderer ,req.body.name, req.body.phone, req.body.address, req.body.statusowner, req.body.tranprice);
                     console.log('Transaction has been submitted');
                     res.render('action');
@@ -93,7 +92,7 @@ app.get('/',  async function (req, res) {
 
     app.post("/api/query", async function (req, res) {
         try {
-                console.log(req.body);
+                //console.log(req.body);
     // Create a new file system based wallet for managing identities.
             const walletPath = path.join(process.cwd(), 'wallet');
             const wallet = new FileSystemWallet(walletPath);
@@ -124,16 +123,22 @@ app.get('/',  async function (req, res) {
               
             });
     } catch (error) {
-            console.error(`Failed to evaluate transaction: ${error}`);
-            res.status(500).json({error: error});
-            process.exit(1);
+        res.render('alert',
+        {
+          error:error
+          
+        });
+            //console.error(`Failed to evaluate transaction: ${error}`);
+            //res.status(500).json({error: error});
+            //process.exit(1);
         }
     });
 
       app.get('/test', function (req, res) {
+        console.log(__dirname);
         res.sendFile(__dirname+"/"+"node_ts.js")
       });
 
-    var server = app.listen(3009, function () {
+    var server = app.listen(3000, function () {
         console.log('Fake API Server Listening on port 3000');
       });   

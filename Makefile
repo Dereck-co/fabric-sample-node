@@ -1,9 +1,4 @@
-.PHONY: all dev clean build env-up env-down run
-
-all: clean build env-up run
-
-dev: build run
-
+.PHONY:clean
 
 clean: 
 	@echo "Clean up ..."

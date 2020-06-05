@@ -7,9 +7,19 @@
     測試
 </title> 
 <style>
+html{
+    /**border:1px solid #f00;**/
+    width:100%;
+    height:100%;
+    background-image: url("https://images.unsplash.com/photo-1468276311594-df7cb65d8df6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: 100% 100%;
+}
+
 .de{
     height:100px;
-    width:40%;
+    width:1020px;
     background-color: lightblue;
     border:#00f solid 1px;
     display:inline-block;
@@ -22,7 +32,7 @@ h3{
     height:100px;
     width:150px;
                        
-    display:inline-block;
+    /**display:inline-block;**/
     margin:0px;
     margin-right:20px;
     float:left;
@@ -34,6 +44,7 @@ h3{
 
 #hideone{
   display:none;
+  color:#fff;
         }
          
 #submit{
@@ -49,6 +60,32 @@ h3{
     height:500px;
     background-color:#ccc;
 }
+
+#se_cus{
+    display:none;
+}
+
+#se_cus_F{
+    display:none;
+}
+
+#login{
+    width:1200px;
+    height:200px;
+    position: absolute;
+    top:600px;
+    left:300px;
+    color:#fff;
+}
+
+#btn{
+    border: 2px solid red;
+    border-radius: 50px;
+}
+
+#btn:hover{
+    background-image:linear-gradient(#ccc, rgb(0, 195, 255), rgb(0, 255, 242));
+}
 </style>
 </head>
 <body>
@@ -57,15 +94,15 @@ h3{
         <fieldset>
         <h1><%= title %></h1>
         <legend>Login : </legend>
-        <label>ID--------- : </label><input type="text" id="pass" placeholder="input your ID&hearts;" /><br>
-        <label>Password : </label><input type="password" id="password" placeholder="input your password&hearts;&hearts;" /><br>
-        <button type="button" onclick="Submit()">Submit</button>
+        <label>ID--------- : </label><input type="text" id="pass" placeholder="input your ID&hearts;" /><br><br>
+        <label>Password : </label><input type="password" id="password" placeholder="input your password&hearts;&hearts;" /><br><br>
+        <button id="btn" type="button" onclick="Submit()">Submit</button>
         </fieldset>
         </div>
-        </div>
+    </div>
         
         <div id="hide">
-        <div class="ts" style="background-color:#66ffff;text-align:left;width:1200;height:700px;border:5px solid #ccc;"> 
+        <div class="ts" style="background-color:#66ffff;text-align:left;width:1200px;height:700px;border:5px solid #ccc;"> 
         <h3>Key : </h3>
         <div id="demo" class="de">
         </div>
@@ -97,23 +134,27 @@ h3{
 
         <div id="hideone">
         <form method="POST"   action="/root" onsubmit="send()">
-        <label>Orderer:</label><input id="ord" type="text" value="ORDERER" disabled><input id="ord_1" type="number" style="width:40px;" >
+        <label>Orderer:</label><input id="ord" type="text" value="ORDERER" disabled><input id="ord_1" type="number" style="width:40px;" required>
         <input id="order_s" type="hidden"  name="orderer"><br><br>
         <label >Name:</label><input type="text" name="name" required><br><br>
         <label >Phone:</label><input type="tel" id="phone" pattern="[0-9]{9}|[0-9]{10}|[0-9]{2}-[0-9]{7}" name="phone" required><br><br>
         <label >Address:</label><input type="text" name="address" required><br><br>
-        <label >StatusOwner:</label><select name="statusowner">
+        <div id="se_cus_F">
+        <label >StatusOwner:</label><select id="statusowner" name="statusowner" disabled>
             <option value="Seller">Seller</option>
             <option value="Homedelivery">Homedelivery</option>
             <option value="Logistics">Logistics</option>
-          </select><br><br>
-        <!--<input type="hidden"  name="statusowner" value="comuser">-->
+          </select>
+        </div>
+        <div id="se_cus">
+        <label >StatusOwner:</label><input type="text" value="customer" disabled>
+        <input id="se_cus_hi" type="hidden"  name="statusowner" value="customer" disabled>
+        </div><br>
         <label >Tranprice:</label><input type="number" name="tranprice" required><br><br>
         <input type="submit" value="Submit"><br>
-        </form>
+        </form><br><br>
         <button type="button" onclick="re()">return Login</button>
         </div>
-        <br/>
         <div id="submit"><%= result %></div>
 
         <div id="query">
