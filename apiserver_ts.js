@@ -12,13 +12,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 app.get('/',  async function (req, res) {
-        //console.dir(req.path);
+        
   try {
     // Create a new file system based wallet for managing identities.
-           //const file =res.sendFile(__dirname+"/"+"node_ts.js");        
+                
             const walletPath = path.join(process.cwd(), 'wallet');
             const wallet = new FileSystemWallet(walletPath);
-            //console.log(`Wallet path: ${walletPath}`);
+            
     // Check to see if we've already enrolled the user.
             const userExists = await wallet.exists('user1');
             if (!userExists) {
@@ -33,17 +33,14 @@ app.get('/',  async function (req, res) {
             const network = await gateway.getNetwork('mychannel');
     // Get the contract from the network.
             const contract = network.getContract('logistics');
-    // Evaluate the specified transaction.
-            // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
-            // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
+    // Evaluate the specified transaction.           
             const result = await contract.evaluateTransaction('queryAllorderer');
             console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
            
            res.render('test',
             {
               title: '首頁',
-              result: result
-              
+              result: result,
             });
         } catch (error) {
             console.error(`Failed to evaluate transaction: ${error}`);
@@ -54,7 +51,7 @@ app.get('/',  async function (req, res) {
     });
 
 
-      app.post('/root', async function (req, res) {
+app.post('/root', async function (req, res) {
         try {
             // Create a new file system based wallet for managing identities.
                     const walletPath = path.join(process.cwd(), 'wallet');
@@ -74,12 +71,9 @@ app.get('/',  async function (req, res) {
                     const network = await gateway.getNetwork('mychannel');
             // Get the contract from the network.
                     const contract = network.getContract('logistics');
-            // Submit the specified transaction.
-                    // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
-                    // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-                    //req.body.ordererid = ORDERER1;
-                    //console.dir(req.body);
-                    const x = await contract.submitTransaction('createOrderer',req.body.orderer ,req.body.name, req.body.phone, req.body.address, req.body.statusowner, req.body.tranprice);
+            // Submit the specified transaction.                
+                    
+                    const x = await contract.submitTransaction('createOrderer',req.body.orderer ,req.body.address ,req.body.name , req.body.phone ,  req.body.statusowner, req.body.tranprice);
                     console.log('Transaction has been submitted');
                     res.render('action');
             // Disconnect from the gateway.
@@ -90,9 +84,9 @@ app.get('/',  async function (req, res) {
                 }
     });
 
-    app.post("/api/query", async function (req, res) {
+app.post("/api/query", async function (req, res) {
         try {
-                //console.log(req.body);
+                
     // Create a new file system based wallet for managing identities.
             const walletPath = path.join(process.cwd(), 'wallet');
             const wallet = new FileSystemWallet(walletPath);
@@ -111,9 +105,7 @@ app.get('/',  async function (req, res) {
             const network = await gateway.getNetwork('mychannel');
     // Get the contract from the network.
             const contract = network.getContract('logistics');
-    // Evaluate the specified transaction.
-            // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
-            // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
+    // Evaluate the specified transaction.            
             const result = await contract.evaluateTransaction('queryOrderer', req.body.orderer_se);
             console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
             res.render('orderer',
@@ -128,16 +120,91 @@ app.get('/',  async function (req, res) {
           error:error
           
         });
-            //console.error(`Failed to evaluate transaction: ${error}`);
-            //res.status(500).json({error: error});
-            //process.exit(1);
         }
     });
 
-      app.get('/test', function (req, res) {
+app.post("/api/delete", async function (req, res) {
+        try {
+                
+    // Create a new file system based wallet for managing identities.
+            const walletPath = path.join(process.cwd(), 'wallet');
+            const wallet = new FileSystemWallet(walletPath);
+            console.log(`Wallet path: ${walletPath}`);
+    // Check to see if we've already enrolled the user.
+            const userExists = await wallet.exists('user1');
+            if (!userExists) {
+                console.log('An identity for the user "user1" does not exist in the wallet');
+                console.log('Run the registerUser.js application before retrying');
+                return;
+            }
+    // Create a new gateway for connecting to our peer node.
+            const gateway = new Gateway();
+            await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+    // Get the network (channel) our contract is deployed to.
+            const network = await gateway.getNetwork('mychannel');
+    // Get the contract from the network.
+            const contract = network.getContract('logistics');
+    // Evaluate the specified transaction.           
+            await contract.submitTransaction('deleteOrderer', req.body.orderer_se1);
+            
+            res.render('orderer_del',
+            {
+              value: req.body.orderer_se1,
+              
+            });
+    } catch (error) {
+        res.render('alert',
+        {
+          error:error
+          
+        });
+       }
+    });
+
+    app.post("/api/change", async function (req, res) {
+        try {
+                
+    // Create a new file system based wallet for managing identities.
+            const walletPath = path.join(process.cwd(), 'wallet');
+            const wallet = new FileSystemWallet(walletPath);
+            console.log(`Wallet path: ${walletPath}`);
+    // Check to see if we've already enrolled the user.
+            const userExists = await wallet.exists('user1');
+            if (!userExists) {
+                console.log('An identity for the user "user1" does not exist in the wallet');
+                console.log('Run the registerUser.js application before retrying');
+                return;
+            }
+    // Create a new gateway for connecting to our peer node.
+            const gateway = new Gateway();
+            await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+    // Get the network (channel) our contract is deployed to.
+            const network = await gateway.getNetwork('mychannel');
+    // Get the contract from the network.
+            const contract = network.getContract('logistics');
+    // Evaluate the specified transaction.         
+            await contract.submitTransaction('changeStatusOwner', req.body.orderer_se2,req.body.cha_Stat);
+            
+            res.render('orderer_cha',
+            {
+              value_1: req.body.orderer_se2,
+              
+            });
+    } catch (error) {
+        res.render('alert_change',
+        {
+          error_1:error
+          
+        });
+       }
+    });
+
+app.get('/test', function (req, res) {
         console.log(__dirname);
         res.sendFile(__dirname+"/"+"node_ts.js")
-      });
+    });
+
+
 
     var server = app.listen(3000, function () {
         console.log('Fake API Server Listening on port 3000');

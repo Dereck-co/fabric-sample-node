@@ -40,6 +40,7 @@ h3{
 
 #hide{
  display:none;
+ 
     }
 
 #hideone{
@@ -55,6 +56,11 @@ h3{
     display:none;
 }
 
+#query_1,#query_2{
+    display:none;
+    color:#fff;
+}
+
 #query_css{
     width:600px;
     height:500px;
@@ -65,7 +71,10 @@ h3{
     display:none;
 }
 
-#se_cus_F{
+#se_cus1,#se_cus2,#se_cus3{
+    display:none;
+}
+#del,#cha{
     display:none;
 }
 
@@ -86,6 +95,32 @@ h3{
 #btn:hover{
     background-image:linear-gradient(#ccc, rgb(0, 195, 255), rgb(0, 255, 242));
 }
+
+#query{
+    color:#fff;
+}
+
+#but_re{
+    border-radius: 50px;
+    background-image:linear-gradient(#ccc, rgb(0, 195, 255), rgb(0, 255, 242));
+}
+
+#but_re:hover{
+    border:1px solid #f00;
+    background-image:linear-gradient(#ccc, rgba(255, 153, 0, 0.336), rgb(145, 255, 0));
+}
+
+#ts{
+    background-color:#66ffff;
+    text-align:left;width:1200px;
+    height:700px;
+    border:5px solid #ccc;
+}
+
+.spa{
+    height:20px;
+    /**border:2px solid #f00;**/
+}
 </style>
 </head>
 <body>
@@ -102,7 +137,7 @@ h3{
     </div>
         
         <div id="hide">
-        <div class="ts" style="background-color:#66ffff;text-align:left;width:1200px;height:700px;border:5px solid #ccc;"> 
+        <div id="ts"> 
         <h3>Key : </h3>
         <div id="demo" class="de">
         </div>
@@ -130,6 +165,8 @@ h3{
         
         <button type="button" onclick="Submitone()">新增表單</button>
         <button type="button" onclick="Submittwo()">訂單查詢</button>
+        <button id="del" type="button" onclick="Submittree()">刪除查詢</button>
+        <button id="cha" type="button" onclick="Submitfour()">更改訂單</button>
         </div>
 
         <div id="hideone">
@@ -139,21 +176,35 @@ h3{
         <label >Name:</label><input type="text" name="name" required><br><br>
         <label >Phone:</label><input type="tel" id="phone" pattern="[0-9]{9}|[0-9]{10}|[0-9]{2}-[0-9]{7}" name="phone" required><br><br>
         <label >Address:</label><input type="text" name="address" required><br><br>
-        <div id="se_cus_F">
-        <label >StatusOwner:</label><select id="statusowner" name="statusowner" disabled>
-            <option value="Seller">Seller</option>
-            <option value="Homedelivery">Homedelivery</option>
-            <option value="Logistics">Logistics</option>
-          </select>
-        </div>
+        
         <div id="se_cus">
         <label >StatusOwner:</label><input type="text" value="customer" disabled>
         <input id="se_cus_hi" type="hidden"  name="statusowner" value="customer" disabled>
-        </div><br>
+        <div class="spa"></div>
+        </div>
+
+        <div id="se_cus1">
+        <label >StatusOwner:</label><input type="text" value="Seller" disabled>
+        <input id="se_cus_hi1" type="hidden"  name="statusowner" value="Seller" disabled>
+        <div class="spa"></div>
+        </div>
+
+        <div id="se_cus2">
+        <label >StatusOwner:</label><input type="text" value="Homedelivery" disabled>
+        <input id="se_cus_hi2" type="hidden"  name="statusowner" value="Homedelivery" disabled>
+        <div class="spa"></div>
+        </div>
+
+        <div id="se_cus3">
+        <label >StatusOwner:</label><input type="text" value="Logistics" disabled>
+        <input id="se_cus_hi3" type="hidden"  name="statusowner" value="Logistics" disabled>
+        <div class="spa"></div>
+        </div>
+
         <label >Tranprice:</label><input type="number" name="tranprice" required><br><br>
         <input type="submit" value="Submit"><br>
         </form><br><br>
-        <button type="button" onclick="re()">return Login</button>
+        <button id="but_re" type="button" onclick="re()">return Login</button>
         </div>
         <div id="submit"><%= result %></div>
 
@@ -163,6 +214,29 @@ h3{
             <input id="order_send" type="hidden"  name="orderer_se">
             <input type="submit" value="Submit">
         </form>
+        </div>
+
+        <div id="query_1">
+        <form method="post" action="/api/delete" onsubmit="send_2()">
+            <label>Orderer:</label><input id="del_1" type="text" value="ORDERER" disabled><input id="del_2" type="number" style="width:40px;" >
+            <input id="order_send1" type="hidden"  name="orderer_se1">
+            <input type="submit" value="Submit">
+        </form>
+        </div>
+
+        <div id="query_2">
+            <form method="post" action="/api/change" onsubmit="send_3()">
+                <label>Orderer:</label><input id="del_3" type="text" value="ORDERER" disabled><input id="del_4" type="number" style="width:40px;" required>
+                <input id="order_send2" type="hidden"  name="orderer_se2">
+                <input type="submit" value="Submit"><br><br>
+                <label>Statusowner:</label>
+                <select name="cha_Stat" required>
+                    <option value="Seller">Seller</option>
+                    <option value="Homedelivery">Homedelivery</option>
+                    <option value="Logistics">Logistics</option>
+                  </select>
+            </form>
+        </div>
         <script src="/test"></script>
 </body>
 </html>
